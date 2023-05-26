@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            text-align: center;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Classification</h1>
+        <form method="POST" action="/predict">
+            <label for="text">Enter your text:</label><br>
+            <textarea id="text" name="text" rows="25" cols="120"></textarea><br><br>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+</body>
+</html>
