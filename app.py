@@ -5,6 +5,7 @@ from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
 import joblib
+from helper import translate_category_name
 
 app = Flask(__name__)
 
@@ -59,6 +60,7 @@ def home():
 
         # Get the predicted category label
         category_label = newsgroups_train.target_names[predicted_category[0]]
+        category_label = translate_category_name(category_label)
 
         return render_template('result.html', category=category_label)
 

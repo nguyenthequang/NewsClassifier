@@ -1,3 +1,39 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4568DC, #B06AB3);
+        }
+        
+        .container {
+            text-align: center;
+            padding: 80px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Classification</h1>
+        <form method="POST" action="/predict">
+            <label for="text">Enter your text:</label><br>
+            <textarea id="text" name="text" rows="25" cols="120"></textarea><br><br>
+            <input type="submit" value="Predict">
+        </form>
+    </div>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +48,113 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4568DC, #B06AB3);
         }
         
         .container {
             text-align: center;
+            padding: 80px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(48, 47, 47, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 45px;
+            left: 10px;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgb(38, 36, 36);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topics-label {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 10px;
         }
     </style>
     <title>Document</title>
 </head>
 <body>
+    <div class="top-bar">
+        <a class="topics-label" onclick="toggleDropdown()">Topics</a>
+    </div>
+
     <div class="container">
         <h1>Text Classification</h1>
         <form method="POST" action="/predict">
             <label for="text">Enter your text:</label><br>
             <textarea id="text" name="text" rows="25" cols="120"></textarea><br><br>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                    <a>Atheism</a>
+                    <a>Computer Graphics</a>
+                    <a>MS Windows OS Miscellaneous</a>
+                    <a>IBM PC Hardware</a>
+                    <a>Macintosh Hardware</a>
+                    <a>Windows X (X Window System)</a>
+                    <a>Miscellaneous Items for Sale</a>
+                    <a>Automobiles</a>
+                    <a>Motorcycles</a>
+                    <a>Baseball</a>
+                    <a>Hockey</a>
+                    <a>Cryptography</a>
+                    <a>Electronics</a>
+                    <a>Medicine</a>
+                    <a>Space Exploration</a>
+                    <a>Christianity</a>
+                    <a>Political Discussions on Guns</a>
+                    <a>Political Discussions on the Middle East</a>
+                    <a>Miscellaneous Political Discussions</a>
+                    <a>Miscellaneous Religious Discussions</a>
+                </div>
+            </div><br><br>
             <input type="submit" value="Predict">
         </form>
     </div>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownContent = document.querySelector(".dropdown-content");
+            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+        }
+    </script>
 </body>
 </html>
