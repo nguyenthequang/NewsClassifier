@@ -10,7 +10,7 @@ def translate_category_name(category_name):
         'comp.sys.ibm.pc.hardware': 'IBM PC Hardware',
         'comp.sys.mac.hardware': 'Macintosh Hardware',
         'comp.windows.x': 'Windows X (X Window System)',
-        'misc.forsale': 'Miscellaneous Items for Sale',
+        'misc.forsale': 'General Items for Sale',
         'rec.autos': 'Automobiles',
         'rec.motorcycles': 'Motorcycles',
         'rec.sport.baseball': 'Baseball',
@@ -22,8 +22,8 @@ def translate_category_name(category_name):
         'soc.religion.christian': 'Christianity',
         'talk.politics.guns': 'Political Discussions on Guns',
         'talk.politics.mideast': 'Political Discussions on the Middle East',
-        'talk.politics.misc': 'Miscellaneous Political Discussions',
-        'talk.religion.misc': 'Miscellaneous Religious Discussions'
+        'talk.politics.misc': 'General Political Discussions',
+        'talk.religion.misc': 'General Religious Discussions'
     }
 
     return translation_dict.get(category_name, category_name)

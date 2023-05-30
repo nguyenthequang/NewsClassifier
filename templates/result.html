@@ -1,27 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Text Classification Result</title>
-  <style>
-    /* CSS styles for centering the div */
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(to right, #4568DC, #B06AB3);
-    }
+{% extends "base.html" %}
 
-    .result-container {
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <div class="result-container">
-    <h1>Text Classification Result</h1>
-    <p>Predicted category: {{ category }}</p>
-    <p><a href="/">Try another text</a></p>
-  </div>
-</body>
-</html>
+{% block content %}
+  <h1>News Classification Result</h1>
+  <p>Predicted category: {{ category }}</p>
+  <p><a href="/">Try another text</a></p>
+{% endblock %}

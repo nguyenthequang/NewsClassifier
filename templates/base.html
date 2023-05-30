@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4568DC, #B06AB3);
+        }
+        
+        .container {
+            text-align: center;
+            padding: 80px;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgb(38, 36, 36);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 45px;
+            left: 10px;
+        }
+
+        .topics-label {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 10px;
+        }
+
+        .about-label {
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            left: 90px;
+            margin: 10px;
+        }
+
+        .about-box {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 90px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            width: 400px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .about-box p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .about-box.show {
+            display: block;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="top-bar">
+        <a class="topics-label" onclick="toggleDropdown()">Topics</a>
+        <a class="about-label" onclick="toggleAbout()">About</a>
+    </div>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+        <div class="dropdown">
+            <div class="dropdown-content">
+                <a>Atheism</a>
+                <a>Computer Graphics</a>
+                <a>MS Windows OS Miscellaneous</a>
+                <a>IBM PC Hardware</a>
+                <a>Macintosh Hardware</a>
+                <a>Windows X (X Window System)</a>
+                <a>General Items for Sale</a>
+                <a>Automobiles</a>
+                <a>Motorcycles</a>
+                <a>Baseball</a>
+                <a>Hockey</a>
+                <a>Cryptography</a>
+                <a>Electronics</a>
+                <a>Medicine</a>
+                <a>Space Exploration</a>
+                <a>Christianity</a>
+                <a>Political Discussions on Guns</a>
+                <a>Political Discussions on the Middle East</a>
+                <a>General Political Discussions</a>
+                <a>General Religious Discussions</a>
+            </div>
+        </div><br><br>
+
+        <div class="about-box" id="aboutBox">
+            <p>This website tries its best to classify texts into common news group.
+                Possible groups can be explored in Topics. The metrics of the AI can be viewed in evaluation.txt.
+                GITHUB Link: https://github.com/nguyenthequang/NewsClassifier
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownContent = document.querySelector(".dropdown-content");
+            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+        }
+
+        function toggleAbout() {
+            var aboutBox = document.getElementById("aboutBox");
+            aboutBox.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>

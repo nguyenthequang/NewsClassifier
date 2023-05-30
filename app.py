@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import SVC
+from sklearn.metrics import classification_report
 import joblib
 from helper import translate_category_name
 
@@ -27,10 +28,10 @@ def home():
                                               remove=('headers', 'footers', 'quotes'),
                                               categories=categories,
                                               shuffle=True, random_state=42)
-        # newsgroups_test = fetch_20newsgroups(subset='test',
-        #                                      remove=('headers', 'footers', 'quotes'),
-        #                                      categories=categories,
-        #                                      shuffle=True, random_state=42)
+        newsgroups_test = fetch_20newsgroups(subset='test',
+                                             remove=('headers', 'footers', 'quotes'),
+                                             categories=categories,
+                                             shuffle=True, random_state=42)
 
         if os.path.exists('model.joblib') and os.path.exists('vectorizer.joblib'):
             # Load the trained model and vectorizer
@@ -38,14 +39,14 @@ def home():
             loaded_vectorizer = joblib.load('vectorizer.joblib')
         else:
             vectorizer = TfidfVectorizer()
-            X_train = vectorizer.fit_transform(newsgroups_train.data)
+            x_train = vectorizer.fit_transform(newsgroups_train.data)
             y_train = newsgroups_train.target
-            # X_test = vectorizer.transform(newsgroups_test.data)
-            # y_test = newsgroups_test.target
+            x_test = vectorizer.transform(newsgroups_test.data)
+            y_test = newsgroups_test.target
 
             # Train an SVM classifier
             classifier = SVC(kernel='linear')
-            classifier.fit(X_train, y_train)
+            classifier.fit(x_train, y_train)
 
             # Save the trained model and vectorizer
             joblib.dump(classifier, 'model.joblib')
@@ -53,6 +54,14 @@ def home():
 
             loaded_classifier = classifier
             loaded_vectorizer = vectorizer
+
+            # Evaluate the model on the test set and save the results to a text file
+            category_names = newsgroups_train.target_names
+            y_pred = loaded_classifier.predict(x_test)
+            report = classification_report(y_test, y_pred, target_names=category_names)
+
+            with open('evaluation.txt', 'w', encoding='utf-8') as file:
+                file.write(report)
 
         # Preprocess the user input and make predictions
         preprocessed_input = loaded_vectorizer.transform([user_input])
