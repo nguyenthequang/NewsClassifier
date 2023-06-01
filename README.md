@@ -42,7 +42,16 @@ To run this web application locally, follow these steps:
 ```
 pip install -r requirements.txt
 ```
-
+5. Alternatively, you can install each item in requirements.txt seperately if the file fails to work:
+```
+pip install -U scikit-learn
+```
+```
+pip install -U Flask
+```
+```
+pip install joblib
+```
 ## Usage
 Once you have installed the necessary packages, you can start using the text classification web application. Follow these steps:
 
@@ -62,14 +71,13 @@ python app.py
 
 7. You can continue to enter new text inputs and get predictions as desired.
 
-## Package Updates
+## Customization
+You can customize this web application to suit your specific requirements. Here are a few possible modifications you might consider:
 
-To enable package updates, run the following command ONCE: 
-```
-pip install pipreqs
-```
+1. Modify the HTML templates (index.html and result.html) to change the appearance and layout of the web pages.
 
-To update packages, run the following from the home directory:
-```
-pipreqs . --force
-```
+2. Customize the translate_category_name function in helper.py to map the predicted category labels to your desired names.
+
+3. Use your own dataset and modify the data preprocessing and model training steps in app.py to train a model on your specific data.
+
+4. Update the routes and endpoints in app.py to add additional functionality or implement different features.
