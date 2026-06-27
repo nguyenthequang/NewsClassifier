@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>News Classification</h1>
-    <form method="POST" action="/predict">
-        <label for="text">Enter your text:</label><br>
-        <textarea id="text" name="text" rows="25" cols="120"></textarea><br><br>
-        <input type="submit" value="Predict">
+    <h1 class="title">News Classification</h1>
+    <p class="subtitle">
+        Paste any article, paragraph, or a few sentences, and the model will
+        predict which of 20 newsgroup categories it best fits.
+    </p>
+    <form method="POST" action="/predict" class="classify-form">
+        <label class="field-label" for="text">Your text</label>
+        <textarea id="text" name="text" rows="12"
+                  placeholder="Type or paste your text here..." required></textarea>
+        <button type="submit" class="btn-primary">Classify text</button>
     </form>
 {% endblock %}
