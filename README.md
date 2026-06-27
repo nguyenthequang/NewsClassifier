@@ -1,7 +1,9 @@
 # Introduction
 
 ## News Classifier Web Application
-This repository contains a Flask web application that uses a trained model to classify text into different categories. The application is designed to predict the category of user-inputted text using a pre-trained Support Vector Machine (SVM) classifier. The model is trained on the 20 Newsgroups dataset, and it uses the TF-IDF vectorization technique to represent text data numerically. This could be used to allow inexerpienced writers to check is their work fit a certain topic or not. 
+This repository contains a Flask web application that uses a trained model to classify text into different categories. The application is designed to predict the category of user-inputted text using a pre-trained Complement Naive Bayes classifier. The model is trained on the 20 Newsgroups dataset, and it uses the TF-IDF vectorization technique to represent text data numerically. This could be used to allow inexerpienced writers to check is their work fit a certain topic or not.
+
+The model achieves about **0.72 accuracy** on the 20 Newsgroups test set (with headers, footers, and quotes removed). The classifier and TF-IDF settings were selected by 3-fold cross-validation on the training set.
 The website collects their text and:
 1. Runs the saved predicting algorithm or train a new one if no saved algorithm is found
 
@@ -12,9 +14,11 @@ The website collects their text and:
 # Technical Overwiew
 The web application is built using Python and Flask framework. Here's an overview of the key components:
 
-1. app.py: This is the main Python file that contains the Flask application. It handles both GET and POST requests and implements the text classification algorithm. The user's input text is processed, preprocessed using a pre-trained TF-IDF vectorizer, and classified using a pre-trained SVM model. The predicted category is then rendered on the result page.
+1. app.py: This is the main Python file that contains the Flask application. It loads the pre-trained vectorizer and model once at startup, then handles GET and POST requests. The user's input text is preprocessed using the pre-trained TF-IDF vectorizer and classified using the pre-trained Complement Naive Bayes model. The predicted category is then rendered on the result page.
 
-2. helper.py: This file contains a helper function translate_category_name that can be used to translate the category names into more user-friendly labels. You can customize this function to match your specific use case.
+2. train.py: This script trains the model from scratch on the 20 Newsgroups dataset and saves model.joblib, vectorizer.joblib, and evaluation.txt. Run it once before first use, and again whenever you upgrade scikit-learn (saved models are not guaranteed to load across scikit-learn versions).
+
+3. helper.py: This file contains a helper function translate_category_name that can be used to translate the category names into more user-friendly labels. You can customize this function to match your specific use case.
 
 3. base.html: This HTML template file defines the overall design of the websites (layout, background, etc.). It includes a droplist for all 20 topics and an "About" button that give an overview about the page.
 
@@ -24,7 +28,7 @@ The web application is built using Python and Flask framework. Here's an overvie
 
 6. evaluation.txt: This text file gives an overview about the model's evaluation metrics, like accuracy, precision, recall, etc.
 
-6. model.joblib and vectorizer.joblib: These are pre-trained files that store the trained SVM model and TF-IDF vectorizer, respectively. If these files exist in the project directory, the application will load them. Otherwise, it will train a new model and vectorizer on the 20 Newsgroups dataset and save them for future use.
+6. model.joblib and vectorizer.joblib: These are pre-trained files that store the trained Complement Naive Bayes model and TF-IDF vectorizer, respectively. The application loads them at startup. If they are missing, run `python train.py` to generate them.
 
 # Setup & Usage
 
@@ -38,19 +42,27 @@ To run this web application locally, follow these steps:
 
 3. Open a terminal or command prompt and navigate to the project directory.
 
-4. Install the required Python packages by running the following command:
+4. Create and activate a virtual environment (recommended, so the project's packages stay isolated from your system Python):
+```
+python -m venv .venv
+```
+On Windows (PowerShell):
+```
+.\.venv\Scripts\Activate.ps1
+```
+On macOS / Linux:
+```
+source .venv/bin/activate
+```
+
+5. Install the required Python packages:
 ```
 pip install -r requirements.txt
 ```
-5. Alternatively, you can install each item in requirements.txt seperately if the file fails to work:
+
+6. Generate the model and vectorizer (this downloads the 20 Newsgroups dataset and trains the classifier; only needed once, or after upgrading scikit-learn):
 ```
-pip install -U scikit-learn
-```
-```
-pip install -U Flask
-```
-```
-pip install joblib
+python train.py
 ```
 ## Usage
 Once you have installed the necessary packages, you can start using the text classification web application. Follow these steps:
